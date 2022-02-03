@@ -1,230 +1,150 @@
-# Pacman programming project
-
-<p align="center">
-<img src="pacman_game.png" width="50%" />
-</p>
-
-The goal of this programming project is to implement intelligent agents for the game of Pacman. The project is divided into three parts:
-- [**Project 0**](./project0): you have to implement a Search agent for eating all the food dots as quickly as possible.
-- [**Project I**](./project1): you have to implement a Minimax agent for eating all the food dots as quickly as possible, while avoiding the ghost enemies that are chasing you.
-- [**Project II**](./project2): you have to implement a Bayes filter for tracking all the non-visible ghosts' positions.
+# Project I
 
 ## Table of contents
 
-- [Installation](#installation)
-    * [Setup](#setup)
-    * [Usage](#usage)
+- [Deliverables](#deliverables)
 - [Instructions](#instructions)
-- [Typical mistakes and bad practices](#typical-mistakes-and-bad-practices)
-- [FAQ](#faq)
-    * [Game score](#score)
-    * [API](#api)
-    * [Illegal moves](#illegal-moves)
-	* [Questions about the projects](#questions-about-the-projects)
+- [Evaluation](#evaluation)
 - [Credits](#credits)
 
 ---
 
-## Installation
+## Deliverables
 
-> The instructions below have been tested under Windows, Linux and MacOS.
+You are requested to deliver a *tar.gz* archive containing:
+ 1. Your report named `report.pdf`.
+     - Your report must be at most **5** pages long.
+     - Fill in the following [template](./template-project1.tex) to write your report.
+     - In French or English.
+     
+ 2. Your `minimax.py` file that implements the Minimax algorithm.
 
-We recommend to install a Python (3) environment using the `conda` package manager. The easiest way is to install [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
+ 3. Your `hminimax0.py` file that implements the H-Minimax algorithm with your best cut-off/heuristic functions pair.
 
-You will also need a code editor that supports Python. If you don't already have one, here are a few you might consider : [Sublime Text](https://www.sublimetext.com/), [VS Code](https://code.visualstudio.com/), [Atom](https://atom.io/), [Vim](https://www.vim.org/), ...
+ 4. Your `hminimax1.py` file that implements the H-Minimax algorithm with your second best cut-off/heuristic functions pair.
 
-Once Miniconda is installed, open the Anaconda prompt (Windows) or a terminal (Linux/MacOS).
+ 5. Your `hminimax2.py` file that implements the H-Minimax algorithm with your third best cut-off/heuristic functions pair.
 
-### Setup
+  Put the template defined in `pacmanagent.py` into each of the `*.py` files and fill in the `get_action` function differently for each file.
 
-(Linux) Create a `pacman` environment and activate it:
-```bash
-conda create --name pacman python=3.9
-conda activate pacman
-```
-
-(MacOS) Create a `pacman` environment and activate it:
-```bash
-conda create --name pacman python=3.9.7
-conda activate pacman
-```
-
-(Windows) Create a `pacman` environment and activate it:
-```bash
-conda create --name pacman python=3.9
-conda activate pacman
-```
-
-From now, it is assumed that `pacman` is activated.
-
-Dependencies should be installed through `conda`:
-```bash
-conda install numpy
-```
-
-### Usage
-
-Start the game with a Pacman agent controlled by the keyboard (keys `j`, `l`, `i`, `k` or arrow keys):
-```bash
-python run.py
-```
-
-**Options**:
-
-`--agentfile`: Start the game with a Pacman agent following a user-defined control policy:
-```bash
-python run.py  --agentfile randomagent.py
-```
-
-`--ghostagent`: Start the game with a ghost agent (either `dumbyd`, `greedy` or `smarty`):
-```bash
-python run.py  --ghostagent=greedy
-```
-
-`--silentdisplay`: Disable the graphical user interface:
-```bash
-python run.py --silentdisplay
-```
-
-`--layout`: Start the game with a user-specifed layout for the maze (see the `/pacman_module/layouts/` folder):
-```bash
-python run.py --layout medium
-```
-
-`--ghostagent`: Start the game with a user-specifed ghost agent (see [**project I**](./project2)):
-```bash
-python run.py --ghostagent greedy
-```
-
-`-h`: For further details, check the command-line help section:
-```bash
-python run.py -h
-```
+:warning: A penalty of **-2 points** on the final grade will be applied if the files are not named based on the instructions above.
 
 ---
 
 ## Instructions
 
-For each part of the project, you must provide the following deliverables:
+This part is due by **October 28, 2021 at 23:59**. This is a **hard** deadline.
 
-- The source code of your Pacman agent(s).
-- A report in PDF format. A template will be provided for each part of the project in order to set the structure and page layout of the report. This template must be completed without any modification.
+In [project 0](../project0), Pacman could wander peacefully in its maze. In this *project 1*, he needs to avoid a walking ghost that would kill it if it reached his position. And Pacman has not idea of (i) what is the objective of the ghost (whether the ghost wants to kill him or not) and (ii) if it is playing optimally for achieving its goal. Pacman only knows that the ghost cannot make a half-turn unless it has no other choice.
 
-Parts 2 and 3 of the project must be carried out in groups of maximum 2 students (with the same group across all parts).
+The ghost follows one of the following policies, as set through the `--ghostagent` command line option:
+ - `dumby`: Rotate on itself in a counterclockwise fashion until it can go on its left.
+ - `greedy`: Select the next position that is the closest to Pacman.
+ - `smarty`: Select the next position which leads to the shortest path towards Pacman.
 
-Your deliverables must be submitted as a *tar.gz* archive on the [Montefiore submission platform](https://submit.montefiore.ulg.ac.be/teacher/courseDetails/INFO8006/).
+:warning: But as specified above, Pacman is not aware of the policy that the ghost follows.
 
-We tolerate only **one delay of maximum 24 hours**. For example, if you submit your first part late, no more delay will be allowed for the two other parts. In case of *more than one delay*, the concerned parts will receive a *0/20* grade.
+Your task is to design an intelligent agent based on adversarial search algorithms (see [Lecture 3](https://glouppe.github.io/info8006-introduction-to-ai/?p=lecture3.md)) for maximizing the score. In this project, we will not consider layouts with capsules, but you may take them into account if you feel motivated. You can start by downloading the [archive](../project1.tar.gz) of the project. In order to run you code, you can use the following command (replacing `humanagent.py` by `minimax.py` for example):
+
+```
+python3 run.py --agentfile humanagent.py --ghost dumby --layout small_adv
+```
+
+You are asked to answer the following questions.
+
+ 1. **Problem Statement -- 4.5 points**
+    
+     - 1.a. - **4 points** - Formalize the game as an **adversarial search problem** by proposing a definition of the following elements **for this particular problem**:
+       
+        - The *set of states* of this game
+            - You must specify the initial state
+        - The function `player(s)` that defines which player has the move (1 for Pacman, 0 for Ghost) in state `s`
+        - The function `action(s)` that defines the legal actions available in state `s`
+        - The transition model that returns the state `s' = result(s, a)` that results from taking action `a` in state `s`
+        - The terminal test `terminal(s)` that determines whether state `s` is terminal (1 for terminal, 0 for non terminal)
+        - The utility function `utility(s, p)` that defines the final numerical value for a game that ends in state `s` for player `p`.
+            - You should define it for player `p = Pacman` only
+            - Remember for game one that the game score function is defined as:
+            ```
+            score = -#time steps + 10*#number of eaten food dots - 5*#number of eaten capsules + 200*#number of eaten ghost + (-500 if #losing end) + (500 if #winning end)
+            ```
+
+        Any **reference to the API** in any component of the problem statement will be considered as **false** (i.e. you can not use function or variables defined in the code in your formalization).
+
+     - 1.b. - **0.5 points** - How would you define `utility(s, p)` for `p = Ghost`, if the game was a zero-sum game.
+
+ 2. **Implementation -- 9 points**
+
+     - 2.a. - **1 point** - Consider the direct application of Minimax with respect to the problem statement, by assuming that the game is a zero-sum game.
+
+        - Discuss its completeness with respect to the game of Pacman.
+
+        - From the point of view of Pacman, by looking at the utility function, is there an advantage in going through a cycle (i.e., going back to an already visited state `s`)?
+
+        - In view of that, discuss how you could guarantee the completeness of Minimax by adapting the components described in the problem statement, while keeping the same set of optimal strategies.
+        
+     - 2.b. - **4 points** - Implement the **Minimax** algorithm as specified in section [Deliverables](#deliverables) in `minimax.py`.
+       
+         - You must **guarantee the completeness** of the algorithm.
+
+         - Your Minimax agent needs to **provide an optimal strategy in the smaller map** `./pacman_module/layouts/small_adv.lay` against all kinds of ghosts.
+
+         - In your report, just refer your code.
+         
+     - 2.c. - **4 points** - Implement the **H-Minimax** algorithm with your own **cutoff-tests** and **evaluation functions** in `hminimax0.py`, `hminimax1.py` and `hminimax2.py`. You are expected to provide **3 cutoff-test/evaluation function pairs**, with **at least two different evaluation functions**. At most two of them might fail against some ghosts/layouts as long as the heuristics do still make sense. We expect you to design winning heuristics while being able to provide possible explanations on failing heuristics.
+       
+         - Each proposed evaluation function needs to differ from the game score function.
+         
+         - Your evaluation functions need to be **fast** to compute and **generalizable**.
+         
+         - Evaluation functions can be built by weighting the different characteristics of the game state, but this is not a constraint.
+         
+         - Your different evaluation/cut-off functions must be significantly different (changing the value of a parameter is not sufficient)
+         
+         - In your report, refer your codes and the describe formally your different cutoff-tests and evaluation functions.
+         
+           N.B.: Although 3 layouts are provided for this project, you remain free to build your own layouts in order to fit the most general cutoff-test/evaluation function pair as possible. If you do so, discuss it briefly in your report.
+     
+ 3. **Experiment -- 4 points**
+
+    - 3.a. - **2 points** - Run your H-Minimax agent against `./pacman_module/layouts/large_adv.lay` layout and all ghosts, using your 3 cutoff-test/evaluation function pairs. Report your 9 results as bar plots in terms of (i) score, (ii) time performances and (iii) number of expanded nodes.      
+
+        - As the number of pages of the report is limited, we advise you to minimise the number of plots by combining bars whenever possible
+
+        - Pay attention to the clarity of your plots (e.g. by labelling the axes, adding a legend, and puting a caption in your LaTeX report).
+
+    - 3.b. - **2 points** - **Summarize** the results of your cutoff-test/evaluation function pairs, according to the type of ghosts. **Explain** these results, notably by referring to the course.
+    
+    NB: there are additional evaluation criteria that you can find in section [Evaluation](#evaluation).
 
 ---
 
-## Typical mistakes and bad practices
+## Evaluation
 
-We show through this section a list of common mistakes and bad practices that we have observed through past projects. Although this section is non exhaustive and thus is subject to regular updates, we hope that the following list will help you to avoid many pitfalls that can hurt the quality of your project.
+Besides the questions you're expected to answer, you will also be evaluated according to the following criteria:
+ - **Code performance** - **2 points** - Your code will be tested on the submission platform machines. After each submission, you will receive a feedback which will contain information about the accuracy of your results and the time performances of your code.  
+     - 2 points: <= 30 seconds
+     - 0 point: > 30 seconds
 
-### Report
+ - **Code style** - **2 points**
+     - **PEP8 compatibility** - **0.8 point** - PEP8 guidelines are provided at [Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/). A script will be executed to check the compatibility of your code.
+         - 0.8 point : the script runs without error.
+         - 0 point: any error during the execution of the script.
+     - **Specification** - **1.2 point** - correctness of the specification of your functions.
+        - 1.2 point : all specifications are correct.
+        - 0.9 point : at least 75% correct specifications.
+        - 0.6 point : at least 50% correct specifications.
+        - 0.3 point : at least 25% correct specifications.
+        - 0 point : less than 25% correct specifications.
 
-- **Formalism**
-	* Reference to an implemented function/method to describe any component of a problem statement. A formal description of a problem statement is **always** independent of its implementation.
-	* Missing variables in state/action spaces. This error always jeopardizes the formal description of the problem, and often jeopardizes the whole project.
-	* Variables not taken into account in the transition model. Transitions must include **all** the variables, even if some of them might stay idle.
+Note that your implementation might be tested on other layouts.
 
-- **Plots**
-	* Unreadable legend/axis, e.g., tiny font, flash coloured text, mixing text and plots. Not only this is annoying for the readers, but it also might slow you down in your working progress, if not interfere with the quality of your discussion on results.   
-	* Variables with different scales on the same plot. When in presence of large variables values, others variable with small scales can literally vanish out of the plot. You should often instead separate them. [Logarithmic scale](https://en.wikipedia.org/wiki/Logarithmic_scale) might also be considered when including two variables with different scales in the same plot is relevant to the discussion.
+:warning: Take care of providing a clearly written report, which fully follows the provided template. We reserve the right to refuse to evaluate a report (i.e. to consider it as not provided) which would be difficult to read and understand. We may also refuse to evaluate discussion blocks that are truly confusing, even if the underlying idea might be right. Sanctions will be imposed in case of non-respect of the guidelines about the structure and length of the report:
 
+ - Any modification of the template: **- 2 points**
+ - Only the first 5 pages of the report will be taken into account for the evaluation.
 
-### Code
-
-- **Style/Documentation**
-	* Source code is not PEP8-compliant. Fulfilling the required specifications help to the readability of your source code. PEP8 guidelines are provided at [Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/). You can use dedicated [scripts](https://pypi.org/project/pycodestyle/) to check PEP8-compliance of your source code. 
-	* Function specifications are either wrong or missing. They must be present and they must **formally** describe the function out of ambiguity. Its purpose is to provide an easier-to-understand description of the function than the code itself. An example of a correct specification is provided below :
-
-	```python
-	   def nth_fibonacci(n):
-           """
-           Computes the n-th member of the Fibonacci sequence.
-           Recursive definition: f(0)=0, f(1)=1,
-                                 f(n)=f(n-1) + f(n-2) for n > 1
-	
-           Arguments:
-           ----------
-           - `n (integer): Positive index of the Fibonacci sequence.
-	
-           Return:
-           -------
-           - The n-th member of the Fibonacci sequence.
-           """
-           if n == 0:
-               return 0
-           if n == 1:
-               return 1
-           return nth_fibonacci(n-1) + nth_fibonacci(n-2)
-	```
-	* Variables and functions are not named accordingly to their meanings. A source code in which names are based on target meanings is easier to read and might need less comments to be readable.
-	* Comments are either uninformative, too verbose or missing. They are important to structure the code and to provide high-level insights on how each part of code interacts with each other, and how the source code is actually behaving (useful for optimization among other benefits). They must contains few words and be straight to the point.
-
-- **Implementation**
-	* Incorrect implementation of the algorithms. This is often due to the violation of any specification of the algorithms, or to an incorrect implementation of the problem statement, e.g., a wrong goal test is provided to the algorithm. Be sure to understand the problem statement you need to describe and the algorithms you are required to implement.
-	* Over confidence on implementation correctness by testing on a small subset of problem instances. While tests are useful to spot implementation errors, they cannot discard all of them. Even if your implementation "works" on some instances of the problem statement, and even if you are encouraged to do such tests, you need to carefully verify your implementation. This includes 1) the correctness of the inputs given to your algorithms with respect to the problem statement and 2) the fullfilment of the algorithms specifications in your implementation.
-	* Inefficiency during execution. Only a few seconds is necessary in the worst case to solve each instance of the problem statement we provide in the projects. While you should first have a working version of your implementation, you should also be careful to limit the computation time below these few seconds.
-	* Import and edge-cases errors, e.g. index out of bounds. While a typo in import sections does not jeopardize the implementation correctness - as long as the required files are present -, it is often difficult for the reader to decide if edge-cases error are either typos or part of the incorrect implementation. The safest policy being the latter, we refer to it when evaluating your work.  
-
----
-
-## FAQ
-
-### Game score
-
-The score function of the game is computed as follows:
-
-`score = -#time steps + 10*#number of eaten food dots - 5*#number of eaten capsules + 200*#number of eaten ghost + (-500 if #losing end) + (500 if #winning end)`.
-
-We ask you to implement an agent that wins the game while maximizing its score.
-
-Note that you should ask yourself if this score function satisfies all the properties of the search algorithms you will implement. If not, you are free to modify it as long as the optimal solutions remain the same.
-
-### API
-
-You must implement your agent as a `PacmanAgent` class, following the template of `pacmanagent.py`.
-The core of your algorithm should be implemented or called within the `get_action` method. This method  receives the current state `s` of the game and should return the action to take.
-
-Useful methods of the state are specified below:
-
- - ```s.generatePacmanSuccessors()``` : Returns a list of pairs of successor states and moves given the current state ```s``` for the pacman agent.
-    * This method **must** be called for any node expansion for pacman agent.
- - ```s.generateGhostSuccessors(agentIndex)``` : Returns a list of pairs of successor states and moves given the current state ```s``` for the ghost agent indexed by ```agentIndex>0```.
-    * This method **must** be called for any node expansion for ghost agent.
- - ```s.getLegalActions(agentIndex)``` : Returns a list of legal moves given the state ```s``` and the agent indexed by ```agentIndex```. 0 is always the Pacman agent.
- - ```s.getPacmanPosition()``` : Returns the Pacman position in a ```(x,y)``` pair.
- - ```s.getScore()``` : Returns the total score of a state (as defined above).
- - ```s.getFood()``` : Returns a boolean matrix which gives the position of all food dots.
- - ```s.getNumFood()``` : Returns a scalar which gives the number of food dots remaining.
- - ```s.getWalls()``` : Returns a boolean matrix which gives the position of all walls.
- - ```s.getGhostPosition(agentIndex)``` : Returns the position of the ghost agent indexed by ```agentIndex>0```.
- - ```s.getGhostDirection(agentIndex)``` : Returns the direction of the ghost agent indexed by ```agentIndex>0```.
- - ```s.getCapsules()``` : Returns a list of positions of the remaining capsules in the maze.
- - ```s.isWin()``` : Returns True if the state is in a *winning end*.
- - ```s.isLose()``` : Returns True if the state is in a *losing end*.
-
-Implementation examples are provided in `humanagent.py` and `randomagent.py`.
-
-### Illegal moves
-
-You need to ensure that your agent always returns a legal move. If it is not the case, the previous move is repeated if it is still legal. Otherwise, it remains in the same location.
-
-### Questions about the projects
-
-The purpose of the projects is to give you an opportunity to have a practical approach of the core concepts of the course. However, you might be stuck during your work progression. Although we are glad to help you to figure out how to solve your various issues, the relevance of our guidance strongly relies on the specificity of your questions, which implies that you have at least tried to solve your issues by referring to the lectures.
-
-You may send your questions at **info8006@montefiore.ulg.ac.be**. You may also meet us at our office with the following schedule:
-
- - Monday: 12PM - 2PM (Arnaud Delaunoy, R 103)
- - Wednesday: 12PM - 2PM (Gaspard Lambrechts, 1 106)
-
-If none of these time slots suits you, feel free to send an email in order to fix an appointment. When you send your email, make sure to already suggest a few time slots. These can of course be outside the duty periods mentioned above.   
-
-Do not wait a couple of days before the **hard** deadline to start your project and/or ask your questions. Be also aware that we cannot guarantee to answer your questions outside office hours.
+:warning: Plagiarism is checked and sanctioned by a grade of 0. Cases of plagiarism will all be reported to the Faculty.
 
 ---
 
