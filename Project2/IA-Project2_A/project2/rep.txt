@@ -1,0 +1,26 @@
+Question 1:
+
+Get distance between Pacman and the ghost (manhattanDistance).
+
+
+binom.rvs => gaussian noise, depend on precision of sensor. - precise => gretter noise
+returns discrete values
+
+
+self.args.sensorvariance given in
+
+self.p = 0.5
+self.sensor_variance = self.args.sensorvariance
+self.n = int(self.sensor_variance/(self.p*(1-self.p)))
+noise = binom.rvs(self.n, self.p) - self.n*self.p
+
+Add a noise to each measure.
+
+Question 2:
+
+Confused: random moves (does not care about pacman)
+Afraid: go farther from pacman => every pos that go away are equally likely => farther = 2 times more probable than closer
+
+Scared => idem with farther 2^3 times more probable
+
+
