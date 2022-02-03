@@ -236,6 +236,5 @@ The programming projects are adapted from [CS188 (UC Berkeley)](http://ai.berkel
 
 # Authors 
 
-- Asad Bakija - [AsadBakija](https://github.com/AsadBakija/)
 - Andrea Gómez Herrera - [andrea-liliana](https://github.com/andrea-liliana/)
 - Thomas Rives -  [ThomasRives](https://github.com/ThomasRives/)
