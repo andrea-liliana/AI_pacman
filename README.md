@@ -231,3 +231,11 @@ Do not wait a couple of days before the **hard** deadline to start your project 
 ## Credits
 
 The programming projects are adapted from [CS188 (UC Berkeley)](http://ai.berkeley.edu/project_overview.html).
+
+---
+
+# Authors 
+
+- Asad Bakija - [AsadBakija](https://github.com/AsadBakija/)
+- Andrea Gómez Herrera - [andrea-liliana](https://github.com/andrea-liliana/)
+- Thomas Rives -  [ThomasRives](https://github.com/ThomasRives/)
