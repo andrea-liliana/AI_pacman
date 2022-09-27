@@ -9,7 +9,7 @@
 
 ## Description
 
-In the last project, Pacman could wander peacefully in its maze. In this *project 1*, he needs to avoid a walking ghost that would kill it if it reached his position. And Pacman has not idea of (i) what is the objective of the ghost (whether the ghost wants to kill him or not) and (ii) if it is playing optimally for achieving its goal. Pacman only knows that the ghost cannot make a half-turn unless it has no other choice.
+In the last project, Pacman could wander peacefully in its maze. In this project, he needs to avoid a walking ghost that would kill it if it reached his position. And Pacman has not idea of (i) what is the objective of the ghost (whether the ghost wants to kill him or not) and (ii) if it is playing optimally for achieving its goal. Pacman only knows that the ghost cannot make a half-turn unless it has no other choice.
 
 The ghost follows one of the following policies, as set through the `--ghostagent` command line option:
  - `dumby`: Rotate on itself in a counterclockwise fashion until it can go on its left.
