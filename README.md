@@ -5,9 +5,9 @@
 </p>
 
 The goal of this programming project is to implement intelligent agents for the game of Pacman. The project is divided into three parts:
-- [**Project 0**](./project0): Implementation of a Search agent for eating all the food dots as quickly as possible.
-- [**Project I**](./project1): Implementation of a Minimax agent for eating all the food dots as quickly as possible, while avoiding the ghost enemies that are chasing you.
-- [**Project II**](./project2): Implementation of a Bayes filter for tracking all the non-visible ghosts' positions.
+- [**Project 0**](./Project0): Implementation of a Search agent for eating all the food dots as quickly as possible.
+- [**Project I**](./Project1): Implementation of a Minimax agent for eating all the food dots as quickly as possible, while avoiding the ghost enemies that are chasing you.
+- [**Project II**](./Project2): Implementation of a Bayes filter for tracking all the non-visible ghosts' positions.
 
 ## Table of contents
 
